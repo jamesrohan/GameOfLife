@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://codd.cs.gsu.edu/~wchiu1/Project3.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="./Project 3_files/Project3.css">
+</head><body>
+<title>Project 3</title>
+
+<script>
+//defualts
+var gen=0;
+var arrRow=10; //game length
+var arrCol=10; //game width 
+var arrCurr = new Array(arrRow); //holds current game values
+var arrNext = new Array(arrRow); //holds next game values
+
+function newSize(){
+arrRow= document.getElementById("newRow").value;
+arrCol= document.getElementById("newCol").value;
+
+//creates 2d array for current game values
+	for (var i = 0; i < arrRow; i++) {
+		arrCurr[i] = new Array(arrRow);
+	}
+//fills with all dead values (0 is dead, 1 is alive)
+	for (var i =0; i<arrRow; i++){
+		for(var j=0; j<arrCol;j++)
+			arrCurr[i][j]=0;
+	}
+	
+//creates 2d array for next generation values
+	for (var i = 0; i < arrRow; i++) { 
+		arrNext[i] = new Array(arrRow);
+	}
+	createTable();
+}
+//later use to change background color (i'm not sure this works yet)
+//document.getElementById('myTable').rows[i].cells[j].style.backgroundColor = "#ffffff"; white
+//document.getElementById('myTable').rows[i].cells[j].style.backgroundColor = "#000000"; black
+
+function createTable(){//creates table to ouput (still requires functionality for changing values)
+	var out="<table>";
+	for(var i=0; i<arrRow;i++){
+		out+="<tr>";
+		for(var j=0; j<arrCol;j++){
+			out+= "<td>"+"</td>";
+		}
+		out+="</tr>";
+	}
+	out+="</table>";
+	document.getElementById("game").innerHTML = out;
+}
+
+function nextGen(){// checks for adjacent values
+	for(var i=0; i<arrRow;i++){
+		for(var j=0;j<arrCol;j++){
+			if(i==0){				//top row
+				if(j==0){			//leftmost column
+					
+				}
+				else if(j==arrCol-1){//rightmost column
+				
+				}
+				else{				//middle colmuns
+				
+				}
+			}
+			else if(i==arrRow-1){	//bottom row
+				if(j==0){			//leftmost column
+				
+				}
+				else if(j==arrCol-1){//rightmost column
+				
+				}
+				else{				//middle colmuns
+				
+				}
+			}
+			else{					//middle rows
+				if(j==0){			//leftmost column
+				
+				}
+				else if(j==arrCol-1){//rightmost column
+				
+				}
+				else{				//middle columns 
+				
+				}
+			}
+		}
+	}
+}
+
+
+</script>
+
+Game of Life
+<br>
+Game Size
+<br>
+Number of Rows<input type="text" id="newRow" value="10">
+<br>
+Number of Columns<input type="text" id="newCol" value="10">
+<br>
+<button onclick="newSize()">Change Size</button>
+
+<p id="game"></p>
+
+
+</body></html>
