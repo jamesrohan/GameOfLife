@@ -12,18 +12,31 @@ var colSize = 10;
 var element_State_Present = get2DArr(rowSize, colSize);
 var element_State_Future = get2DArr(rowSize, colSize);
 
+var t; // this variable holds the setInterval() function
+var count = 0;// the count to clearInterval()
 
-		//$("#test").(element_State_Present.toString());
-		//document.getElementById("test").innerHTML = element_State_Present.toString();
 
-
-		main();
+		main();		
+		
+		function tick(){
+			logic();
+			count++;
+			if(count == 23){
+				count = 0;
+				clearInterval(t);
+				return;
+			}
+			
+			console.log("Generation: "+count);
+		}
 
 		function main(){
 			createTable();
+	
 
 			$("#run_button").click(function(){
-				logic();
+				//	logic();
+				t = setInterval(tick, 1000);// the t variable that 					
 			});
 		}
 
