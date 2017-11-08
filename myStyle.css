@@ -52,6 +52,10 @@ body {
 }
 
 
+table{
+  margin: auto;
+}
+
 
 table, td {
   border-collapse: collapse;
@@ -61,4 +65,3 @@ td{
   height:10px;
   width: 10px;
 }
-

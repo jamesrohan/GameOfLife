@@ -14,7 +14,7 @@ var element_State_Future = get2DArr(rowSize, colSize);
 
 
 		//$("#test").(element_State_Present.toString());
-		document.getElementById("test").innerHTML = element_State_Present.toString();
+		//document.getElementById("test").innerHTML = element_State_Present.toString();
 
 
 		main();
@@ -27,8 +27,8 @@ var element_State_Future = get2DArr(rowSize, colSize);
 			});
 		}
 
-		
-		
+
+
 
 		function logic(){
 
@@ -42,15 +42,38 @@ var element_State_Future = get2DArr(rowSize, colSize);
         			//var main_id = $(this).attr('id');
 
        				 var str_ID = i+"d"+j;
-
-					if( (whats_my_neighbors<2 || whats_my_neighbors>3) && (element_State_Present[i][j] == 1 || element_State_Present[i][j] == null) ){
+							 /*
+					if( (whats_my_neighbors < 2 || whats_my_neighbors > 3 && (element_State_Present[i][j] == 1))  ){ //&& (element_State_Present[i][j] == 1 || element_State_Present[i][j] == null)
 						element_State_Future[i][j] = 0;
 						//$("#"+str_ID).css("background","white");
 
 
-					}else if( whats_my_neighbors==3 && (element_State_Present[i][j] == 0 || element_State_Present[i][j] == null)){
+					}else if( whats_my_neighbors == 3 && (element_State_Present[i][j] == 0) ){ //&& (element_State_Present[i][j] == 0 || element_State_Present[i][j] == null)
 						element_State_Future[i][j] = 1;
 						//$("#"+str_ID).css("background","black");
+					} */
+
+
+
+
+					if(element_State_Present[i][j] === 1){
+							if(whats_my_neighbors<2){
+								element_State_Future[i][j] = 0;
+								$("#"+str_ID).css("background","white");
+							}else if (whats_my_neighbors === 2 || whats_my_neighbors===3) {
+								element_State_Future[i][j] = 1;
+								$("#"+str_ID).css("background","black");
+							}else if (whats_my_neighbors > 3) {
+								element_State_Future[i][j] = 0;
+								$("#"+str_ID).css("background","white");
+							}
+
+					}else if (element_State_Present[i][j] === 0) {
+						if (whats_my_neighbors===3) {
+							element_State_Future[i][j] = 1;
+							$("#"+str_ID).css("background","black");
+						}
+
 					}
 
 
@@ -62,14 +85,15 @@ var element_State_Future = get2DArr(rowSize, colSize);
 			for (var i = 0 ; i < rowSize; i++) {
 				for (var j = 0; j < colSize; j++) {
 					element_State_Present[i][j] = element_State_Future[i][j];
+					element_State_Future[i][j] = 0;
 				}
 			}
 
-			draw_New_Values();
+			//draw_New_Values();
 
 		}
 
-		
+
 		function draw_New_Values(){
 			console.log("I am here");
 			$('table tr td').css("background","white");
@@ -80,8 +104,8 @@ var element_State_Future = get2DArr(rowSize, colSize);
 				for(var j=0; j<colSize; j++){
 					var str_ID = i+"d"+j;
 					console.log("I am here 3 "+ str_ID);
-					
-					if(element_State_Present[i][j]==1){
+
+					if(element_State_Present[i][j] === 1){
 						$("#"+str_ID).css("background","black");
 						console.log("I am here 4");
 					}else{
@@ -92,20 +116,24 @@ var element_State_Future = get2DArr(rowSize, colSize);
 
 				}//Nested For
 			}//Main For
-			
-			
-		} 
+
+
+		}
 
 
 		function Search_My_Neighbors(curr_row,curr_col){
-			var My_Neighbors;
+			var My_Neighbors = 0;
 			for (var m =  - 1; m <= 1; m++) {
 				for(var n =  - 1; n <= 1; n++){
 					My_Neighbors += element_State_Present[curr_row+m][curr_col+n];
 				}
 			}
 
+
 			My_Neighbors -= element_State_Present[curr_row][curr_col];
+			var myStr = curr_row+"d"+curr_col;
+			console.log("Heres My Neighbors:  "+My_Neighbors+"   Here's My ID: "+myStr);
+			return My_Neighbors;
 		}
 
 
@@ -127,7 +155,7 @@ var element_State_Future = get2DArr(rowSize, colSize);
         element_State_Present[row_id][col_id] = 0;
 
         }
-        
+
         //alert("Row: "+row_id +"  "+"Col: "+col_id+ "  ID: "+main_id);
         //$("#P_Display_3").load(file_id)//"file1.txt"
 
@@ -179,22 +207,3 @@ var element_State_Future = get2DArr(rowSize, colSize);
 
 
 }); // End ready Function JQuery
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
