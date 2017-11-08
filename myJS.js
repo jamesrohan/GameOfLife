@@ -5,9 +5,9 @@
 $(document).ready(function(){
 
 
-var gen = 0;
-var rowSize = 10;
-var colSize = 10;
+
+var rowSize = 30;
+var colSize = 30;
 //var returnArr;
 var element_State_Present = get2DArr(rowSize, colSize);
 var element_State_Future = get2DArr(rowSize, colSize);
@@ -15,9 +15,45 @@ var element_State_Future = get2DArr(rowSize, colSize);
 var t; // this variable holds the setInterval() function
 var count = 0;// the count to clearInterval()
 
+var counter_stop = 0;
+var s;
+var generation =1;
 
-		main();		
-		
+		prompt_user();
+		main();
+
+
+		function main(){
+			createTable();
+
+
+		$("#run_button_23").click(function(){
+				//	logic();
+				t = setInterval(tick, 150);// the t variable that
+			});//End #run_button_23
+
+			$("#run_button_1").click(function(){ logic(); });
+
+			$("#run_button_start").click(function(){ s = setInterval(tick_infinity, 150); });
+
+			$("#run_button_stop").click(function(){ counter_stop = 1; });
+
+			$("#reset_button").click(function(){
+				//Set Eveything to intial Values
+				location.reload();
+			});
+
+
+
+
+		}//End Main
+
+
+		function prompt_user(){
+			rowSize = parseInt(prompt("Enter Row Size","30"));
+			colSize = parseInt(prompt("Enter Column Size","30"));
+		}
+
 		function tick(){
 			logic();
 			count++;
@@ -26,49 +62,35 @@ var count = 0;// the count to clearInterval()
 				clearInterval(t);
 				return;
 			}
-			
-			console.log("Generation: "+count);
-		}
 
-		function main(){
-			createTable();
-	
+			console.log("Generation(Local For 23 Gens): " + count);
+			console.log("Generation(Global): "+generation);
+		}// End tick
 
-			$("#run_button").click(function(){
-				//	logic();
-				t = setInterval(tick, 1000);// the t variable that 					
-			});
-		}
+
+
+		function tick_infinity(){
+			logic();
+			if(counter_stop == 1){
+				counter_stop = 0;
+				clearInterval(s);
+				return;
+			}
+
+			console.log("Generation(Global): "+generation);
+		}// End Tick
+
+
 
 
 
 
 		function logic(){
 
-			for (var i = 1 ; i < rowSize-1; i++) {
-				for (var j = 1; j < colSize-1; j++) {
+			for (var i = 0 ; i < rowSize; i++) {
+				for (var j = 0; j < colSize; j++) {
 					var whats_my_neighbors = Search_My_Neighbors(i,j);
-
-
-					//var row_id = i;//$(this).attr('data-row');
-        			//var col_id = j;//$(this).attr('data-col');
-        			//var main_id = $(this).attr('id');
-
-       				 var str_ID = i+"d"+j;
-							 /*
-					if( (whats_my_neighbors < 2 || whats_my_neighbors > 3 && (element_State_Present[i][j] == 1))  ){ //&& (element_State_Present[i][j] == 1 || element_State_Present[i][j] == null)
-						element_State_Future[i][j] = 0;
-						//$("#"+str_ID).css("background","white");
-
-
-					}else if( whats_my_neighbors == 3 && (element_State_Present[i][j] == 0) ){ //&& (element_State_Present[i][j] == 0 || element_State_Present[i][j] == null)
-						element_State_Future[i][j] = 1;
-						//$("#"+str_ID).css("background","black");
-					} */
-
-
-
-
+       	  var str_ID = i+"d"+j;
 					if(element_State_Present[i][j] === 1){
 							if(whats_my_neighbors<2){
 								element_State_Future[i][j] = 0;
@@ -101,53 +123,30 @@ var count = 0;// the count to clearInterval()
 					element_State_Future[i][j] = 0;
 				}
 			}
+			generation++;
+			document.getElementById("Display_Variables").innerHTML = "Generation: "+generation;
 
-			//draw_New_Values();
+		}//End Logic
 
-		}
-
-
-		function draw_New_Values(){
-			console.log("I am here");
-			$('table tr td').css("background","white");
-			console.log("I am here 2");
-
-
-			for(var i =0; i<rowSize; i++){
-				for(var j=0; j<colSize; j++){
-					var str_ID = i+"d"+j;
-					console.log("I am here 3 "+ str_ID);
-
-					if(element_State_Present[i][j] === 1){
-						$("#"+str_ID).css("background","black");
-						console.log("I am here 4");
-					}else{
-						$("#"+str_ID).css("background","white");
-						console.log("I am here 5");
-					}
-
-
-				}//Nested For
-			}//Main For
-
-
-		}
 
 
 		function Search_My_Neighbors(curr_row,curr_col){
 			var My_Neighbors = 0;
 			for (var m =  - 1; m <= 1; m++) {
 				for(var n =  - 1; n <= 1; n++){
-					My_Neighbors += element_State_Present[curr_row+m][curr_col+n];
+					if( curr_row+m >=0 && curr_col+n >= 0 &&  curr_row+m < rowSize && curr_col+n < colSize ){
+						My_Neighbors += element_State_Present[curr_row+m][curr_col+n];
+					}
+
 				}
 			}
 
 
 			My_Neighbors -= element_State_Present[curr_row][curr_col];
 			var myStr = curr_row+"d"+curr_col;
-			console.log("Heres My Neighbors:  "+My_Neighbors+"   Here's My ID: "+myStr);
+			console.log("Here's My ID:   "+myStr +"    Heres My Neighbors:  "+My_Neighbors);
 			return My_Neighbors;
-		}
+		}// End Search My_Neighbors
 
 
 
@@ -169,34 +168,21 @@ var count = 0;// the count to clearInterval()
 
         }
 
-        //alert("Row: "+row_id +"  "+"Col: "+col_id+ "  ID: "+main_id);
-        //$("#P_Display_3").load(file_id)//"file1.txt"
-
-    	});
+    	});// End Table Click
 
 
 
 		function get2DArr(rows,cols){
 
-			var arr = [];
-			/*
-		    for (var i = 0; i < cols; i++) {
-		        arr[i] = [];
-		    }*/
-
+				var arr = [];
 		    for (i=0;i<rows;i++) {
 				 arr[i]=new Array();
 				 for (j=0;j<cols;j++) {
 				  arr[i][j]=0;
 				 }
-			}
-
-
-
+				}
 		    return arr;
-
-
-		}
+		}// End get2DArr
 
 
 
@@ -214,9 +200,5 @@ var count = 0;// the count to clearInterval()
 			out+="</table>";
 			document.getElementById("game").innerHTML = out;
 		}
-
-
-
-
 
 }); // End ready Function JQuery
