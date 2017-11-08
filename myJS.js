@@ -58,24 +58,35 @@ var element_State_Future = get2DArr(rowSize, colSize);
 			}// Main For
 
 
-			element_State_Present = element_State_Future;
+			//element_State_Present = element_State_Future;
+			for (var i = 0 ; i < rowSize; i++) {
+				for (var j = 0; j < colSize; j++) {
+					element_State_Present[i][j] = element_State_Future[i][j];
+				}
+			}
+
 			draw_New_Values();
 
 		}
 
 		
 		function draw_New_Values(){
+			console.log("I am here");
 			$('table tr td').css("background","white");
+			console.log("I am here 2");
 
 
 			for(var i =0; i<rowSize; i++){
 				for(var j=0; j<colSize; j++){
 					var str_ID = i+"d"+j;
+					console.log("I am here 3 "+ str_ID);
 					
 					if(element_State_Present[i][j]==1){
 						$("#"+str_ID).css("background","black");
+						console.log("I am here 4");
 					}else{
 						$("#"+str_ID).css("background","white");
+						console.log("I am here 5");
 					}
 
 
