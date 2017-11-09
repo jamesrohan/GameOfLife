@@ -33,7 +33,7 @@ var generation =1;
 
 			$("#run_button_start").click(function(){ s = setInterval(tick_infinity, 150); });
 
-			$("#run_button_stop").click(function(){ counter_stop = 1;  });
+			$("#run_button_stop").click(function(){ counter_stop = 1;   });
 
 			$("#reset_button").click(function(){
 				//Set Eveything to intial Values
