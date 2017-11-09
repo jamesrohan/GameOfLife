@@ -54,6 +54,39 @@ var generation =1;
 			colSize = parseInt(prompt("Enter Column Size","30"));
 		}
 
+		$("#user_options").change(function (){
+
+			if(this.value == "block"){
+				element_State_Present[0][0]=1;
+				element_State_Present[0][1]=1;
+				element_State_Present[1][0]=1;
+				element_State_Present[1][1]=1;
+			}else if(this.value == "blinker"){
+				element_State_Present[1][0]=1;
+				element_State_Present[1][1]=1;
+				element_State_Present[1][2]=1;
+			}else if(this.value == "toad"){
+				element_State_Present[1][2]=1;
+				element_State_Present[1][3]=1;
+				element_State_Present[1][4]=1;
+
+				element_State_Present[2][1]=1;
+				element_State_Present[2][2]=1;
+				element_State_Present[2][3]=1;
+			}else if(this.value == "glider"){
+				element_State_Present[0][1]=1;
+				element_State_Present[1][2]=1;
+				element_State_Present[2][0]=1;
+				element_State_Present[2][1]=1;
+				element_State_Present[2][2]=1;
+			}
+
+			s = setInterval(tick_infinity, 150);
+
+
+
+		});
+
 		function tick(){
 			logic();
 			count++;
