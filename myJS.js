@@ -27,16 +27,13 @@ var generation =1;
 			createTable();
 
 
-		$("#run_button_23").click(function(){
-				//	logic();
-				t = setInterval(tick, 150);// the t variable that
-			});//End #run_button_23
+		$("#run_button_23").click(function(){ t = setInterval(tick, 150); });//End #run_button_23
 
 			$("#run_button_1").click(function(){ logic(); });
 
 			$("#run_button_start").click(function(){ s = setInterval(tick_infinity, 150); });
 
-			$("#run_button_stop").click(function(){ counter_stop = 1; });
+			$("#run_button_stop").click(function(){ counter_stop = 1;  });
 
 			$("#reset_button").click(function(){
 				//Set Eveything to intial Values
@@ -90,9 +87,11 @@ var generation =1;
 		function tick(){
 			logic();
 			count++;
-			if(count == 23){
+			if(count == 23 || counter_stop == 1){
 				count = 0;
+				counter_stop = 0;
 				clearInterval(t);
+				clearInterval(s); //test
 				return;
 			}
 
@@ -107,6 +106,7 @@ var generation =1;
 			if(counter_stop == 1){
 				counter_stop = 0;
 				clearInterval(s);
+				clearInterval(t);//test
 				return;
 			}
 

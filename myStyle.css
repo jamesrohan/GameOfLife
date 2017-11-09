@@ -1,5 +1,5 @@
 
-     @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
 body {
   text-align: center;
@@ -7,13 +7,15 @@ body {
   font-family: 'Roboto', sans-serif;
   width: 100wh;
   height: 90vh;
-  color: black; /*#fff*/
-  background: blue;/*linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);*/
+  color: #fff; /*#fff*/
+  background:linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB); /*#fb887c;*/ /*linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);*/
   background-size: 400% 400%;
   -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 15s ease infinite;
   animation: Gradient 15s ease infinite;
 }
+
+
 
 @-webkit-keyframes Gradient {
   0% {
@@ -62,9 +64,21 @@ table{
 
 table, td {
   border-collapse: collapse;
-  border: 3px solid gray;
+  border: 1px solid gray;
 }
 td{
   height:10px;
   width: 10px;
 }
+
+h1 , h2 , h3 {
+   font-weight: normal;
+}
+
+
+
+
+
+
+
+/*Button CSS*/
